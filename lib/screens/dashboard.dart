@@ -50,12 +50,16 @@ class DashboardState extends State<DashboardPage> {
                       height: 60,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[Text('COVID-19 SL')],
                     ),
                     SizedBox(
                       height: 30,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Material(
                           elevation: 4,
@@ -63,24 +67,34 @@ class DashboardState extends State<DashboardPage> {
                               const BorderRadius.all(Radius.circular(12)),
                           child: Padding(
                             padding: const EdgeInsets.only(
-                                left: 16.0,
-                                right: 16.0,
-                                top: 16.0,
-                                bottom: 32.0),
+                                left: 30.0,
+                                right: 30.0,
+                                top: 30.0,
+                                bottom: 30.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Row(
-                                  children: <Widget>[Text("Total Local Cases", style: overviewLabel,)],
-                                ),
-                                Row(
                                   children: <Widget>[
-                                    Text(snapshot.data.localTotalCases
-                                        .toString(), style: totalCases,)
+                                    Text(
+                                      "Total Local Cases",
+                                      style: overviewLabel,
+                                    )
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Text(
+                                      snapshot.data.localTotalCases.toString(),
+                                      style: totalCases,
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 15,
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -92,14 +106,28 @@ class DashboardState extends State<DashboardPage> {
                                       children: <Widget>[
                                         Row(
                                           children: <Widget>[
-                                            Text(snapshot.data.localDeaths
-                                                .toString(), style: overviewStatsCount)
+                                            Text(
+                                                snapshot.data.localDeaths
+                                                    .toString(),
+                                                style: overviewStatsCount)
                                           ],
                                         ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
                                         Row(
-                                          children: <Widget>[Text("Deaths", style: overviewLabel,)],
+                                          children: <Widget>[
+                                            Text(
+                                              "Deaths",
+                                              style: overviewLabel,
+                                            )
+                                          ],
                                         )
                                       ],
+                                    ),
+
+                                    SizedBox(
+                                      width: 40,
                                     ),
 
                                     // Local Recovered
@@ -109,14 +137,28 @@ class DashboardState extends State<DashboardPage> {
                                       children: <Widget>[
                                         Row(
                                           children: <Widget>[
-                                            Text(snapshot.data.localRecovered
-                                                .toString(), style: overviewStatsCount)
+                                            Text(
+                                                snapshot.data.localRecovered
+                                                    .toString(),
+                                                style: overviewStatsCount)
                                           ],
                                         ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
                                         Row(
-                                          children: <Widget>[Text("Recovered", style: overviewLabel,)],
+                                          children: <Widget>[
+                                            Text(
+                                              "Recovered",
+                                              style: overviewLabel,
+                                            )
+                                          ],
                                         )
                                       ],
+                                    ),
+
+                                    SizedBox(
+                                      width: 40,
                                     ),
 
                                     // Local total in hospital
@@ -126,14 +168,22 @@ class DashboardState extends State<DashboardPage> {
                                       children: <Widget>[
                                         Row(
                                           children: <Widget>[
-                                            Text(snapshot
-                                                .data.localTotalInHospitals
-                                                .toString(), style: overviewStatsCount)
+                                            Text(
+                                                snapshot
+                                                    .data.localTotalInHospitals
+                                                    .toString(),
+                                                style: overviewStatsCount)
                                           ],
+                                        ),
+                                        SizedBox(
+                                          height: 5,
                                         ),
                                         Row(
                                           children: <Widget>[
-                                            Text("In Hospitals", style: overviewLabel,)
+                                            Text(
+                                              "In Hospitals",
+                                              style: overviewLabel,
+                                            )
                                           ],
                                         )
                                       ],
@@ -145,7 +195,11 @@ class DashboardState extends State<DashboardPage> {
                           ),
                         )
                       ],
-                    )
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row()
                   ],
                 );
             }

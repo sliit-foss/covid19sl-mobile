@@ -35,9 +35,7 @@ class Statistics {
       @required this.hospitalData});
 
   factory Statistics.fromJson(Map<String, dynamic> json) {
-    print('in from json');
-    print(json);
-    print('after json decode');
+    
     List<HospitalData> hospitalDataList = new List();
 
     json['hospital_data'].forEach((data) => hospitalDataList.add(
@@ -56,7 +54,6 @@ class Statistics {
             treatmentLocal: data['treatment_local'],
             treatmentTotal: data['treatment_total'])));
 
-    print(hospitalDataList);
     return Statistics(
       updatedOn: DateTime.parse(json['update_date_time']),
       localNewCases: json['local_new_cases'] as int,
