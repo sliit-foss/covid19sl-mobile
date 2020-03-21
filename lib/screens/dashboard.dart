@@ -1,5 +1,6 @@
 import 'package:covid19sl/models/statistics.dart';
 import 'package:covid19sl/services/http.dart';
+import 'package:covid19sl/util/textstyles.dart';
 import 'package:flutter/material.dart';
 
 class DashboardState extends State<DashboardPage> {
@@ -70,12 +71,12 @@ class DashboardState extends State<DashboardPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Row(
-                                  children: <Widget>[Text("Total Local Cases")],
+                                  children: <Widget>[Text("Total Local Cases", style: overviewLabel,)],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Text(snapshot.data.localTotalCases
-                                        .toString())
+                                        .toString(), style: totalCases,)
                                   ],
                                 ),
                                 SizedBox(
@@ -92,11 +93,11 @@ class DashboardState extends State<DashboardPage> {
                                         Row(
                                           children: <Widget>[
                                             Text(snapshot.data.localDeaths
-                                                .toString())
+                                                .toString(), style: overviewStatsCount)
                                           ],
                                         ),
                                         Row(
-                                          children: <Widget>[Text("Deaths")],
+                                          children: <Widget>[Text("Deaths", style: overviewLabel,)],
                                         )
                                       ],
                                     ),
@@ -109,11 +110,11 @@ class DashboardState extends State<DashboardPage> {
                                         Row(
                                           children: <Widget>[
                                             Text(snapshot.data.localRecovered
-                                                .toString())
+                                                .toString(), style: overviewStatsCount)
                                           ],
                                         ),
                                         Row(
-                                          children: <Widget>[Text("Recovered")],
+                                          children: <Widget>[Text("Recovered", style: overviewLabel,)],
                                         )
                                       ],
                                     ),
@@ -127,12 +128,12 @@ class DashboardState extends State<DashboardPage> {
                                           children: <Widget>[
                                             Text(snapshot
                                                 .data.localTotalInHospitals
-                                                .toString())
+                                                .toString(), style: overviewStatsCount)
                                           ],
                                         ),
                                         Row(
                                           children: <Widget>[
-                                            Text("In Hospitals")
+                                            Text("In Hospitals", style: overviewLabel,)
                                           ],
                                         )
                                       ],
