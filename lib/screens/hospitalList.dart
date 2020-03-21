@@ -90,11 +90,11 @@ class HospitalList extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Text('Treatment Local', style: hospitalSubLabel),
+                          Text('Total Cumulative', style: hospitalSubLabel),
                           SizedBox(
                             width: 10,
                           ),
-                          Text(data.treatmentLocal.toString(),
+                          Text(data.cumulativeTotal.toString(),
                               style: hospitalSubStats)
                         ],
                       ),
@@ -103,11 +103,11 @@ class HospitalList extends StatelessWidget {
                       ),
                       Row(
                         children: <Widget>[
-                          Text('Treatment Foreign', style: hospitalSubLabel),
+                          Text('Total Treatment', style: hospitalSubLabel),
                           SizedBox(
                             width: 10,
                           ),
-                          Text(data.treatmentForeign.toString(),
+                          Text(data.treatmentTotal.toString(),
                               style: hospitalSubStats)
                         ],
                       )
