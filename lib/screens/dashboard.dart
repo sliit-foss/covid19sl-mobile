@@ -202,7 +202,13 @@ class DashboardState extends State<DashboardPage> {
                       height: 30,
                     ),
                     Container(
-                      height: 800.0,
+                      alignment: Alignment(-0.9, -0.9),
+                      padding: EdgeInsets.all(12),
+                      child: Text('Hospital Data', style: overviewLabel,),
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.6,
+                      padding: EdgeInsets.all(12),
                       child: HospitalList(hospitalData: snapshot.data.hospitalData),
                     )
                   ],
