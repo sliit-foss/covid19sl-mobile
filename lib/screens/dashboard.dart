@@ -3,7 +3,6 @@ import 'package:covid19sl/services/http.dart';
 import 'package:flutter/material.dart';
 
 class DashboardState extends State<DashboardPage> {
-
   final HttpService httpService = HttpService();
 
   @override
@@ -20,11 +19,24 @@ class DashboardState extends State<DashboardPage> {
                 return Text('Could not fetch data');
 
               case ConnectionState.waiting:
-                return CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue));
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        height: 700,
+                        child: Center(
+                            child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.blue),
+                        )),
+                      ),
+                    )
+                  ],
+                );
 
               case ConnectionState.active:
-                // TODO: Handle this case.
                 break;
               case ConnectionState.done:
                 if (snapshot.hasError)
@@ -62,7 +74,8 @@ class DashboardState extends State<DashboardPage> {
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    Text(snapshot.data.localTotalCases.toString())
+                                    Text(snapshot.data.localTotalCases
+                                        .toString())
                                   ],
                                 ),
                                 SizedBox(
@@ -78,7 +91,8 @@ class DashboardState extends State<DashboardPage> {
                                       children: <Widget>[
                                         Row(
                                           children: <Widget>[
-                                            Text(snapshot.data.localDeaths.toString())
+                                            Text(snapshot.data.localDeaths
+                                                .toString())
                                           ],
                                         ),
                                         Row(
@@ -94,7 +108,8 @@ class DashboardState extends State<DashboardPage> {
                                       children: <Widget>[
                                         Row(
                                           children: <Widget>[
-                                            Text(snapshot.data.localRecovered.toString())
+                                            Text(snapshot.data.localRecovered
+                                                .toString())
                                           ],
                                         ),
                                         Row(
@@ -110,7 +125,9 @@ class DashboardState extends State<DashboardPage> {
                                       children: <Widget>[
                                         Row(
                                           children: <Widget>[
-                                            Text(snapshot.data.localTotalInHospitals.toString())
+                                            Text(snapshot
+                                                .data.localTotalInHospitals
+                                                .toString())
                                           ],
                                         ),
                                         Row(
