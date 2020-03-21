@@ -1,4 +1,6 @@
+import 'package:covid19sl/models/hospitalData.dart';
 import 'package:covid19sl/models/statistics.dart';
+import 'package:covid19sl/screens/hospitalList.dart';
 import 'package:covid19sl/services/http.dart';
 import 'package:covid19sl/util/textstyles.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ class DashboardState extends State<DashboardPage> {
       SingleChildScrollView(
         child: FutureBuilder<Statistics>(
           future: httpService.getData(),
-          builder: (context, snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<Statistics> snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
                 return Text('Could not fetch data');
@@ -199,9 +201,15 @@ class DashboardState extends State<DashboardPage> {
                     SizedBox(
                       height: 30,
                     ),
-                    Row()
+                    Container(
+                      height: 800.0,
+                      child: HospitalList(hospitalData: snapshot.data.hospitalData),
+                    )
                   ],
                 );
+
+              default:
+                return Text('ERROR');
             }
           },
         ),
