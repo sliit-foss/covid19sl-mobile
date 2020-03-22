@@ -1,11 +1,14 @@
 import 'package:covid19sl/models/hospitalData.dart';
+import 'package:covid19sl/services/localization.dart';
 import 'package:covid19sl/util/textstyles.dart';
 import 'package:flutter/material.dart';
 
 class HospitalList extends StatelessWidget {
   final List<HospitalData> hospitalData;
 
-  HospitalList({@required this.hospitalData});
+  final LocalizationService localizationService;
+
+  HospitalList({@required this.hospitalData, @required this.localizationService});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class HospitalList extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Text(
-                    data.hospital.name,
+                    data.hospital.getLocalizedName(localizationService.locale),
                     style: hospitalName,
                   )
                 ],
@@ -53,7 +56,7 @@ class HospitalList extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Text('C. Local', style: hospitalSubLabel),
+                          Text(localizationService.translate('C. Local'), style: hospitalSubLabel),
                           SizedBox(
                             width: 10,
                           ),
@@ -68,7 +71,7 @@ class HospitalList extends StatelessWidget {
                       ),
                       Row(
                         children: <Widget>[
-                          Text('C. Foreign', style: hospitalSubLabel),
+                          Text(localizationService.translate('C. Foreign'), style: hospitalSubLabel),
                           SizedBox(
                             width: 10,
                           ),
@@ -89,7 +92,7 @@ class HospitalList extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Text('Total Cumulative', style: hospitalSubLabel),
+                          Text(localizationService.translate('Total Cumulative'), style: hospitalSubLabel),
                           SizedBox(
                             width: 10,
                           ),
@@ -102,7 +105,7 @@ class HospitalList extends StatelessWidget {
                       ),
                       Row(
                         children: <Widget>[
-                          Text('Total Treatment', style: hospitalSubLabel),
+                          Text(localizationService.translate('Total Treatment'), style: hospitalSubLabel),
                           SizedBox(
                             width: 10,
                           ),
@@ -130,7 +133,7 @@ class HospitalList extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Text(
-                    'Local',
+                    localizationService.translate('Local'),
                     style: hospitalSubLabel,
                   ),
                 ],
@@ -150,7 +153,7 @@ class HospitalList extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Text(
-                    'Foreign',
+                    localizationService.translate('Foreign'),
                     style: hospitalSubLabel,
                   ),
                 ],
