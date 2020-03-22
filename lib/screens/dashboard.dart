@@ -66,10 +66,12 @@ class DashboardState extends State<DashboardPage>
                           SizedBox(
                             width: 50,
                           ),
-                          Text('COVID-19 SL'),
+                          Text('COVID-19 SL', style: TextStyle( fontWeight: FontWeight.bold)),
                           IconButton(
                             icon: Icon(Icons.rotate_right),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {});
+                            },
                           ),
                         ],
                       ),
@@ -379,7 +381,7 @@ class DashboardState extends State<DashboardPage>
                         ),
                       ),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.4,
+                        height: MediaQuery.of(context).size.height * 0.48,
                         padding: EdgeInsets.all(12),
                         child: HospitalList(
                             hospitalData: snapshot.data.hospitalData),
@@ -394,19 +396,6 @@ class DashboardState extends State<DashboardPage>
           ),
         )
       ]),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment_turned_in),
-            title: Text('Precautions'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_alert),
-            title: Text('Symptoms'),
-          ),
-        ],
-      ),
     );
   }
 }
