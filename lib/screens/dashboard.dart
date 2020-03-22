@@ -2,6 +2,7 @@ import 'package:covid19sl/models/hospitalData.dart';
 import 'package:covid19sl/models/statistics.dart';
 import 'package:covid19sl/screens/hospitalList.dart';
 import 'package:covid19sl/services/http.dart';
+import 'package:covid19sl/services/localization.dart';
 import 'package:covid19sl/util/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,9 +10,13 @@ import 'package:provider/provider.dart';
 class DashboardState extends State<DashboardPage>
     with SingleTickerProviderStateMixin {
   final HttpService httpService = HttpService();
+  final LocalizationService localizationService = LocalizationService(Locale('en'));
+  final List<String> supportedLanguages = ['en','ta','si'];
 
   TabController tabController;
+
   HttpService _httpService = HttpService();
+  
   @override
   void initState() {
     tabController = TabController(vsync: this, length: 2);
@@ -21,10 +26,10 @@ class DashboardState extends State<DashboardPage>
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        FutureProvider<Statistics>.value(value: _httpService.getData())
-      ],
-      child: Scaffold(
+        providers: [
+         FutureProvider<Statistics>.value(value: _httpService.getData())
+        ],
+          child: Scaffold(
         body: Stack(children: <Widget>[
           Container(
             child: FutureBuilder<Statistics>(
@@ -45,8 +50,8 @@ class DashboardState extends State<DashboardPage>
                             height: 700,
                             child: Center(
                                 child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.redAccent),
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.redAccent),
                             )),
                           ),
                         )
@@ -59,9 +64,8 @@ class DashboardState extends State<DashboardPage>
                     if (snapshot.hasError)
                       return Text('Error:\n\n${snapshot.error}');
 
-                    //added a listView to temporary avoid overflow
                     return ListView(
-                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      //crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         SizedBox(
                           height: 30,
@@ -69,12 +73,34 @@ class DashboardState extends State<DashboardPage>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            SizedBox(
-                              width: 50,
+                            DropdownButton<String>(
+                              value: localizationService.locale.languageCode,
+                              icon: Icon(Icons.language),
+                              iconSize: 24,
+                              elevation: 8,
+                              style: TextStyle(
+                                color: Colors.deepPurple
+                              ),
+                              underline: Container(
+                                height: 2,
+                                color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  localizationService.locale = Locale(newValue);
+                                });
+                              },
+                              items: supportedLanguages
+                                .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                })
+                                .toList(),
                             ),
                             Text('COVID-19 SL',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18)),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                             IconButton(
                               icon: Icon(Icons.rotate_right),
                               onPressed: () {
@@ -89,18 +115,17 @@ class DashboardState extends State<DashboardPage>
                               controller: tabController,
                               indicatorColor: Colors.transparent,
                               labelColor: Colors.black,
-                              unselectedLabelColor:
-                                  Colors.grey.withOpacity(0.5),
+                              unselectedLabelColor: Colors.grey.withOpacity(0.5),
                               isScrollable: false,
                               tabs: <Widget>[
                                 Tab(
-                                  child: Text('Local', style: tabStyle),
+                                  child: Text(localizationService.translate('Local'), style: tabStyle),
                                 ),
-                                Tab(child: Text('Global', style: tabStyle))
+                                Tab(child: Text(localizationService.translate('Global'), style: tabStyle))
                               ],
                             )),
                         Container(
-                          height: MediaQuery.of(context).size.height * 0.3, // this cause a overflow
+                          height: MediaQuery.of(context).size.height * 0.3,
                           child: TabBarView(
                             controller: tabController,
                             children: <Widget>[
@@ -124,7 +149,7 @@ class DashboardState extends State<DashboardPage>
                                             MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
-                                            "Total Local Cases",
+                                            localizationService.translate("Total Local Cases"),
                                             style: overviewLabel,
                                           )
                                         ],
@@ -148,7 +173,7 @@ class DashboardState extends State<DashboardPage>
                                             ? '+' +
                                                 snapshot.data.localNewCases
                                                     .toString() +
-                                                ' new cases'
+                                                ' '+ localizationService.translate('new cases')
                                             : '',
                                         style: newCasesCount,
                                       ),
@@ -160,97 +185,93 @@ class DashboardState extends State<DashboardPage>
                                             MainAxisAlignment.center,
                                         children: <Widget>[
                                           // Local Deaths
-                                          // Wrapped childs with expanded widgets to avoid overflow
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: <Widget>[
-                                                Row(
-                                                  children: <Widget>[
-                                                    Text(
-                                                        snapshot
-                                                            .data.localDeaths
-                                                            .toString(),
-                                                        style:
-                                                            overviewStatsCount)
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 5,
-                                                ),
-                                                Row(
-                                                  children: <Widget>[
-                                                    Text(
-                                                      "Deaths",
-                                                      style: overviewLabel,
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                      snapshot.data.localDeaths
+                                                          .toString(),
+                                                      style: overviewStatsCount)
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    "Deaths",
+                                                    style: overviewLabel,
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+
+                                          SizedBox(
+                                            width: 40,
                                           ),
 
                                           // Local Recovered
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: <Widget>[
-                                                Row(
-                                                  children: <Widget>[
-                                                    Text(
-                                                        snapshot
-                                                            .data.localRecovered
-                                                            .toString(),
-                                                        style:
-                                                            overviewStatsCount)
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 5,
-                                                ),
-                                                Row(
-                                                  children: <Widget>[
-                                                    Text(
-                                                      "Recovered",
-                                                      style: overviewLabel,
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                      snapshot.data.localRecovered
+                                                          .toString(),
+                                                      style: overviewStatsCount)
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    localizationService.translate("Recovered"),
+                                                    style: overviewLabel,
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+
+                                          SizedBox(
+                                            width: 40,
                                           ),
 
                                           // Local total in hospital
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: <Widget>[
-                                                Row(
-                                                  children: <Widget>[
-                                                    Text(
-                                                        snapshot.data
-                                                            .localTotalInHospitals
-                                                            .toString(),
-                                                        style:
-                                                            overviewStatsCount)
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 5,
-                                                ),
-                                                Row(
-                                                  children: <Widget>[
-                                                    Text(
-                                                      "In Hospitals",
-                                                      style: overviewLabel,
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                      snapshot.data
+                                                          .localTotalInHospitals
+                                                          .toString(),
+                                                      style: overviewStatsCount)
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    localizationService.translate("In Hospitals"),
+                                                    style: overviewLabel,
+                                                  )
+                                                ],
+                                              )
+                                            ],
                                           )
                                         ],
                                       )
@@ -280,7 +301,7 @@ class DashboardState extends State<DashboardPage>
                                             MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
-                                            "Total Global Cases",
+                                            localizationService.translate("Total Global Cases"),
                                             style: overviewLabel,
                                           )
                                         ],
@@ -304,7 +325,7 @@ class DashboardState extends State<DashboardPage>
                                             ? '+' +
                                                 snapshot.data.globalNewCases
                                                     .toString() +
-                                                ' new cases'
+                                                ' '+localizationService.translate('new cases')
                                             : '',
                                         style: newCasesCount,
                                       ),
@@ -365,7 +386,7 @@ class DashboardState extends State<DashboardPage>
                                               Row(
                                                 children: <Widget>[
                                                   Text(
-                                                    "Recovered",
+                                                    localizationService.translate("Recovered"),
                                                     style: overviewLabel,
                                                   )
                                                 ],
@@ -396,7 +417,7 @@ class DashboardState extends State<DashboardPage>
                           alignment: Alignment(-0.9, -0.9),
                           padding: EdgeInsets.all(12),
                           child: Text(
-                            'Hospital Data',
+                            localizationService.translate('Hospital Data'),
                             style: overviewLabel,
                           ),
                         ),
@@ -404,7 +425,9 @@ class DashboardState extends State<DashboardPage>
                           height: MediaQuery.of(context).size.height * 0.48,
                           padding: EdgeInsets.all(12),
                           child: HospitalList(
-                              hospitalData: snapshot.data.hospitalData),
+                              hospitalData: snapshot.data.hospitalData,
+                              localizationService: localizationService,
+                              ),
                         )
                       ],
                     );
