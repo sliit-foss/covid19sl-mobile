@@ -5,22 +5,21 @@ import 'package:flutter/material.dart';
 class HospitalList extends StatelessWidget {
   final List<HospitalData> hospitalData;
 
-  HospitalList({@required this.hospitalData}) {
-    print('inside hospital list');
-    print(this.hospitalData);
-  }
+  HospitalList({@required this.hospitalData});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(itemBuilder: (context, i) {
-      final index = i ~/ 2;
-      if (i.isOdd)
-        return SizedBox(
-          height: 20,
-        );
-      if (index >= hospitalData.length) return null;
-      return _buildRow(this.hospitalData[index]);
-    });
+    return ListView.builder(
+      itemBuilder: (context, i) {
+        final index = i ~/ 2;
+        if (i.isOdd)
+          return SizedBox(
+            height: 10,
+          );
+        if (index >= hospitalData.length) return null;
+        return _buildRow(this.hospitalData[index]);
+      },
+    );
   }
 
   Widget _buildRow(HospitalData data) {
@@ -121,26 +120,40 @@ class HospitalList extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Text(data.treatmentLocal.toString(), style: currentHospitalStat),
+                  Text(data.treatmentLocal.toString(),
+                      style: currentHospitalStat),
                 ],
               ),
               SizedBox(
                 height: 2,
               ),
-              Row(
-                children: <Widget>[Text('Local', style: hospitalSubLabel,),],
-              ),
-              SizedBox(height: 10,),
               Row(
                 children: <Widget>[
-                  Text(data.treatmentForeign.toString(), style: currentHospitalStat),
+                  Text(
+                    'Local',
+                    style: hospitalSubLabel,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: <Widget>[
+                  Text(data.treatmentForeign.toString(),
+                      style: currentHospitalStat),
                 ],
               ),
               SizedBox(
                 height: 2,
               ),
               Row(
-                children: <Widget>[Text('Foreign', style: hospitalSubLabel,),],
+                children: <Widget>[
+                  Text(
+                    'Foreign',
+                    style: hospitalSubLabel,
+                  ),
+                ],
               )
             ],
           )
