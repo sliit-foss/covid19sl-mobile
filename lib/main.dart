@@ -3,6 +3,7 @@ import 'package:covid19sl/models/statistics.dart';
 import 'package:covid19sl/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'screens/home.dart';
 void main() => runApp(Covid19());
 
 class Covid19 extends StatelessWidget {
@@ -15,7 +16,7 @@ class Covid19 extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:DashboardPage()
+      home:Home()
     );
   }
 }
