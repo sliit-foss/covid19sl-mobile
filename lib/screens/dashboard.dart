@@ -2,12 +2,15 @@ import 'package:covid19sl/models/hospitalData.dart';
 import 'package:covid19sl/models/statistics.dart';
 import 'package:covid19sl/screens/hospitalList.dart';
 import 'package:covid19sl/services/http.dart';
+import 'package:covid19sl/services/localization.dart';
 import 'package:covid19sl/util/textstyles.dart';
 import 'package:flutter/material.dart';
 
 class DashboardState extends State<DashboardPage>
     with SingleTickerProviderStateMixin {
   final HttpService httpService = HttpService();
+  final LocalizationService localizationService = LocalizationService(Locale('en'));
+  final List<String> supportedLanguages = ['en','ta','si'];
 
   TabController tabController;
 
@@ -63,8 +66,31 @@ class DashboardState extends State<DashboardPage>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          SizedBox(
-                            width: 50,
+                          DropdownButton<String>(
+                            value: localizationService.locale.languageCode,
+                            icon: Icon(Icons.language),
+                            iconSize: 24,
+                            elevation: 8,
+                            style: TextStyle(
+                              color: Colors.deepPurple
+                            ),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                localizationService.locale = Locale(newValue);
+                              });
+                            },
+                            items: supportedLanguages
+                              .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              })
+                              .toList(),
                           ),
                           Text('COVID-19 SL',
                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -86,9 +112,9 @@ class DashboardState extends State<DashboardPage>
                             isScrollable: false,
                             tabs: <Widget>[
                               Tab(
-                                child: Text('Local', style: tabStyle),
+                                child: Text(localizationService.translate('Local'), style: tabStyle),
                               ),
-                              Tab(child: Text('Global', style: tabStyle))
+                              Tab(child: Text(localizationService.translate('Global'), style: tabStyle))
                             ],
                           )),
                       Container(
@@ -116,7 +142,7 @@ class DashboardState extends State<DashboardPage>
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Total Local Cases",
+                                          localizationService.translate("Total Local Cases"),
                                           style: overviewLabel,
                                         )
                                       ],
@@ -140,7 +166,7 @@ class DashboardState extends State<DashboardPage>
                                           ? '+' +
                                               snapshot.data.localNewCases
                                                   .toString() +
-                                              ' new cases'
+                                              ' '+ localizationService.translate('new cases')
                                           : '',
                                       style: newCasesCount,
                                     ),
@@ -201,7 +227,7 @@ class DashboardState extends State<DashboardPage>
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  "Recovered",
+                                                  localizationService.translate("Recovered"),
                                                   style: overviewLabel,
                                                 )
                                               ],
@@ -233,7 +259,7 @@ class DashboardState extends State<DashboardPage>
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  "In Hospitals",
+                                                  localizationService.translate("In Hospitals"),
                                                   style: overviewLabel,
                                                 )
                                               ],
@@ -268,7 +294,7 @@ class DashboardState extends State<DashboardPage>
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Total Global Cases",
+                                          localizationService.translate("Total Global Cases"),
                                           style: overviewLabel,
                                         )
                                       ],
@@ -292,7 +318,7 @@ class DashboardState extends State<DashboardPage>
                                           ? '+' +
                                               snapshot.data.globalNewCases
                                                   .toString() +
-                                              ' new cases'
+                                              ' '+localizationService.translate('new cases')
                                           : '',
                                       style: newCasesCount,
                                     ),
@@ -353,7 +379,7 @@ class DashboardState extends State<DashboardPage>
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                  "Recovered",
+                                                  localizationService.translate("Recovered"),
                                                   style: overviewLabel,
                                                 )
                                               ],
@@ -384,7 +410,7 @@ class DashboardState extends State<DashboardPage>
                         alignment: Alignment(-0.9, -0.9),
                         padding: EdgeInsets.all(12),
                         child: Text(
-                          'Hospital Data',
+                          localizationService.translate('Hospital Data'),
                           style: overviewLabel,
                         ),
                       ),
@@ -392,7 +418,9 @@ class DashboardState extends State<DashboardPage>
                         height: MediaQuery.of(context).size.height * 0.48,
                         padding: EdgeInsets.all(12),
                         child: HospitalList(
-                            hospitalData: snapshot.data.hospitalData),
+                            hospitalData: snapshot.data.hospitalData,
+                            localizationService: localizationService,
+                            ),
                       )
                     ],
                   );
