@@ -20,6 +20,6 @@ TextStyle hospitalSubStats =
     TextStyle(fontWeight: FontWeight.w600, fontSize: 12);
 
 TextStyle currentHospitalStat =
-    TextStyle(fontWeight: FontWeight.w600, fontSize: 18);
+    TextStyle(fontWeight: FontWeight.w800, fontSize: 18, color: Colors.redAccent);
 
 TextStyle tabStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 14);

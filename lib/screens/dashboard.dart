@@ -41,7 +41,7 @@ class DashboardState extends State<DashboardPage>
                           child: Center(
                               child: CircularProgressIndicator(
                             valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.blue),
+                                AlwaysStoppedAnimation<Color>(Colors.redAccent),
                           )),
                         ),
                       )
@@ -66,7 +66,8 @@ class DashboardState extends State<DashboardPage>
                           SizedBox(
                             width: 50,
                           ),
-                          Text('COVID-19 SL', style: TextStyle( fontWeight: FontWeight.bold)),
+                          Text('COVID-19 SL',
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                           IconButton(
                             icon: Icon(Icons.rotate_right),
                             onPressed: () {
@@ -95,8 +96,6 @@ class DashboardState extends State<DashboardPage>
                         child: TabBarView(
                           controller: tabController,
                           children: <Widget>[
-                            
-                            
                             // Local
                             Container(
                               padding: EdgeInsets.all(25),
@@ -105,11 +104,16 @@ class DashboardState extends State<DashboardPage>
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
                                 ),
-                                padding: EdgeInsets.only(left: 20.0, right: 25.0, top: 25.0, bottom: 10.0),
+                                padding: EdgeInsets.only(
+                                    left: 20.0,
+                                    right: 25.0,
+                                    top: 25.0,
+                                    bottom: 10.0),
                                 child: Column(
                                   children: <Widget>[
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           "Total Local Cases",
@@ -121,7 +125,8 @@ class DashboardState extends State<DashboardPage>
                                       height: 5,
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           snapshot.data.localTotalCases
@@ -251,11 +256,16 @@ class DashboardState extends State<DashboardPage>
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
                                 ),
-                                padding: EdgeInsets.only(left: 20.0, right: 25.0, top: 25.0, bottom: 10.0),
+                                padding: EdgeInsets.only(
+                                    left: 20.0,
+                                    right: 25.0,
+                                    top: 25.0,
+                                    bottom: 10.0),
                                 child: Column(
                                   children: <Widget>[
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           "Total Global Cases",
@@ -267,7 +277,8 @@ class DashboardState extends State<DashboardPage>
                                       height: 5,
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           snapshot.data.globalTotalCases
@@ -292,7 +303,7 @@ class DashboardState extends State<DashboardPage>
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: <Widget>[
-                                                                                SizedBox(width: 40),
+                                        SizedBox(width: 40),
 
                                         // Local Deaths
                                         Column(
@@ -330,7 +341,8 @@ class DashboardState extends State<DashboardPage>
                                             Row(
                                               children: <Widget>[
                                                 Text(
-                                                    snapshot.data.globalRecovered
+                                                    snapshot
+                                                        .data.globalRecovered
                                                         .toString(),
                                                     style: overviewStatsCount)
                                               ],
@@ -352,16 +364,12 @@ class DashboardState extends State<DashboardPage>
                                         SizedBox(
                                           width: 40,
                                         ),
-
                                       ],
                                     )
                                   ],
                                 ),
                               ),
                             ),
-
-
-
                           ],
                         ),
                       ),
