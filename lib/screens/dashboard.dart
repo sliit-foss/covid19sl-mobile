@@ -1,4 +1,4 @@
-import 'package:covid19sl/models/hospitalData.dart';
+
 import 'package:covid19sl/models/statistics.dart';
 import 'package:covid19sl/screens/hospitalList.dart';
 import 'package:covid19sl/services/http.dart';
@@ -58,8 +58,10 @@ class DashboardState extends State<DashboardPage>
                       ],
                     );
 
-                  case ConnectionState.active:
-                    break;
+                  
+                  // case ConnectionState.active:
+                  //   return Container();
+                  //   break;
                   case ConnectionState.done:
                     if (snapshot.hasError)
                       return Text('Error:\n\n${snapshot.error}');
@@ -140,7 +142,7 @@ class DashboardState extends State<DashboardPage>
                                   padding: EdgeInsets.only(
                                       left: 20.0,
                                       right: 25.0,
-                                      top: 25.0,
+                                      //top: 25.0,
                                       bottom: 10.0),
                                   child: Column(
                                     children: <Widget>[

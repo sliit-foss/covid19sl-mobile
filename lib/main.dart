@@ -1,8 +1,5 @@
-import 'package:covid19sl/models/report.dart';
-import 'package:covid19sl/models/statistics.dart';
-import 'package:covid19sl/screens/dashboard.dart';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'screens/home.dart';
 void main() => runApp(Covid19());
 

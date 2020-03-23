@@ -8,14 +8,14 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-Set<Marker> _markers = {};
+  Set _markers = {};
   Completer<GoogleMapController> _controller = Completer();
     LatLng pinPosition = LatLng(6.9225, 79.9182);
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(  
            body: Stack(
       children: <Widget>[
         Container(
@@ -25,7 +25,7 @@ Set<Marker> _markers = {};
               CameraPosition(target: LatLng(6.927079, 79.861244), zoom: 10),
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
-
+            
           setState(() {
 
             _markers.add(
