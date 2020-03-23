@@ -10,3 +10,4 @@ Look for open issues and start contributing. Happy Coding
 - Nandun Bandara 
 
 ## Contributors
+- Yasas Wickramarathne
