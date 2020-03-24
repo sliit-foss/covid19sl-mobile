@@ -4,14 +4,14 @@
     {
       "id": 1,
       "name": "National Institute of Infectious Diseases",
-      "lat": "lat",
-      "long": "long"
+      "lat": "6.9225",
+      "long": "79.9182"
     },
     {
       "id": 2,
-      "name": "National Institute of Infectious Diseases",
-      "lat": "6.9225",
-      "long": "79.9182"
+      "name": "National Hospital Sri Lanka",
+      "lat": "6.917889",
+      "long": "79.8668"
     }
   ]
 }
