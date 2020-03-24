@@ -1,6 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'screens/home.dart';
+import 'package:provider/provider.dart';
+import 'services/http.dart';
+
 void main() => runApp(Covid19());
 
 class Covid19 extends StatelessWidget {
@@ -13,7 +17,11 @@ class Covid19 extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:Home()
+      home:MultiProvider(
+        providers: [
+          FutureProvider<List<Marker>>.value(value:HttpService().getMarkers() )
+        ],
+        child: Home())
     );
   }
 }
