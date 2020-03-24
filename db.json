@@ -1,7 +1,17 @@
-{
-                    "id": 1,
-                    "name": "National Institute of Infectious Diseases",
-                    "lat": "6.9225",
-                    "long": "79.9182"
 
-                }
+{
+  "marker": [
+    {
+      "id": 1,
+      "name": "National Institute of Infectious Diseases",
+      "lat": "lat",
+      "long": "long"
+    },
+    {
+      "id": 2,
+      "name": "National Institute of Infectious Diseases",
+      "lat": "6.9225",
+      "long": "79.9182"
+    }
+  ]
+}
