@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:covid19sl/models/hospital.dart';
 import 'package:covid19sl/models/hospitalData.dart';
 import 'package:flutter/foundation.dart';
@@ -35,7 +33,6 @@ class Statistics {
       @required this.hospitalData});
 
   factory Statistics.fromJson(Map<String, dynamic> json) {
-    
     List<HospitalData> hospitalDataList = new List();
 
     json['hospital_data'].forEach((data) => hospitalDataList.add(

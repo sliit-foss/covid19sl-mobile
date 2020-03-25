@@ -10,6 +10,8 @@ class HttpService {
     Response res = await get(localUrl);
     if (res.statusCode == 200) {
       return Statistics.fromJson(jsonDecode(res.body)['data']);
+    } else {
+      return null;
     }
   }
 }
