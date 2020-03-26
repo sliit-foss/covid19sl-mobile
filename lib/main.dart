@@ -1,17 +1,27 @@
-import 'package:covid19sl/screens/dashboard.dart';
+
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'screens/home.dart';
+import 'package:provider/provider.dart';
+import 'services/http.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(Covid19());
 
-class MyApp extends StatelessWidget {
+class Covid19 extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'COVID-19 SL',
+      debugShowCheckedModeBanner: false,
+      title: 'Covid19sl',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DashboardPage(),
+      home:MultiProvider(
+        providers: [
+          FutureProvider<List<Marker>>.value(value:HttpService().getMarkers() )
+        ],
+        child: Home())
     );
   }
 }
