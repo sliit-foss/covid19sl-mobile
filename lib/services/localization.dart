@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class LocalizationService {
-
   LocalizationService(this.locale);
 
   Locale locale;
